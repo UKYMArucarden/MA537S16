@@ -12,23 +12,25 @@ BODY{font-family:"Gill Sans", "Arial", "Helvetica", sans-serif;
  table.main{table-layout:fixed;
 	    display:table;
 	    margin:auto;
-	    width:85%;
+	    /* width:85%; */
 }
-  td.right{vertical-align:text-top; max-width:10em;
-	  min-width:5em;width:85%}
+ td.right{vertical-align:text-top;
+	  /* max-width:10em; */
+	  /*  min-width:5em; */
+	   width:85%}
   .main{table-layout:fixed;
 	    display:table;
 	    margin:auto;
-	    max-width: 50em;
-	    min-width: 45em;
+	    /* max-width: 50em; */
+	    /* min-width: 45em; */
 	    border-spacing: 0em;
 	    border-collapse: separate;}  
   .toptable{font-family:"Times", "Arial", "Helvetica", sans-serif;
         font-size: 100%;
         color:navy;
 	    display:table;
-	    margin:auto;
-	    width:95%;
+	    /* margin:auto; */
+	    /* width:95%; */
 	    background-color: #ffffff;
 }  
   .row{display:table-row;font-family:"Times", "Arial", "Helvetica", sans-serif;
