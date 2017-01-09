@@ -37,7 +37,7 @@ BODY{font-family:"Gill Sans", "Arial", "Helvetica", sans-serif;
         font-size: 100%;
         color:navy;}
   .leftcell{padding-left:0em;display:table-cell; vertical-align:textf-top;width: 15%;border-spacing:10em;}
-  .rightcell{display:table-cell; vertical-align:text-top;min-width:35em;padding-left:1em;}
+  .rightcell{display:table-cell; vertical-align:text-top;width:100%;padding-left:1em;}
   ul{ margin: .5em;}
   inner{display:table-cell;}
   H1{font-family:"Gill Sans", "Arial", "Helvetica", sans-serif;
