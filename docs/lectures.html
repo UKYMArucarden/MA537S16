@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head> <title>Lectures - MA/CS/EGR 537-002 - University of Kentucky - Spring 2017 </title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet"
+          href="class_style2.css"
+          type="text/css">
+  </head>
+  <body>
+    <div class="toptable">
+      <div class="table-row">
+	<h1 style="text-align: center;">
+	  MA/CS/EGR 537-002 &#183; Numerical Analysis  
+	</h1>
+	<h2 style="text-align: center;">
+	  Spring 2017  &#183; University of Kentucky
+	</h2>
+      </div>
+      <div class="row">
+	<div class="center" style="text-align:center;">
+	  <h3>
+	    <a href="index.html">MAIN PAGE</a> &nbsp;
+	    //&nbsp;
+	    <a href="lectures.html"><b>LECTURES</b></a> &nbsp; 
+	    //&nbsp;
+	    <a href="homework.html">PROBLEM SETS</a> &nbsp;
+	     //&nbsp; <a href="exams.html">EXAMS</a>
+	     &nbsp;
+	  </h3>
+	</div>
+      </div>
+      <div class="table-row">
+	<div class="table-cell">
+	  <div class="main" style="border-collapse:separate;border-spacing: 0 1em;min-width:45em;max-width:50em;">
+	    <script type="text/javascript">
+	      // today's date
+	      var today = new Date();
+	      var year = "2017";
+	      // var today = new Date(2013,5,1); // for testing purposes
+	      // dates for the lectures
+	      var datestr = ['1/11','1/13','1/18','1/20','1/23','1/25','1/27','1/30','2/1','2/3','2/6','2/8','2/10','2/13','2/15','2/17','2/20','2/22','2/24','2/27','3/1','3/3','3/6','3/8','3/10','3/20','3/22','3/24','3/27','3/29','4/3','4/5','4/7','4/10','4/12','4/14','4/17','4/19','4/21','4/24','4/26','4/28'];
+
+	      // generate date objects
+	      var mydates = [];
+	      for(i=0;i<datestr.length;i++)
+			  {
+			  mydates[i] = new Date(datestr[i]+'/'+year);
+			  }
+			  wkdaystr=['S','M','T','W','R','F','S'];
+
+			  // the strings to be printed in the table
+			  var textstr = [];
+//Week 1
+			  textstr[0]='Course overview;<br>  (1.1) Real Numbers and Floating Point Numbers';
+			  textstr[1]='(1.1,1.2) Rounding,Floating Point Arithmetic, Error Propogation, Cancellation<br>Code from class <a href="./matlab/lec2.html">lec2</a></br><a href="http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html"> What every computer scientist should know about floating-point arithmetic</a><br> Home page of <a href="http://www.cs.berkeley.edu/~wkahan/">William Kahan</a>,  designer of IEEE floating point standard';
+			  //Week 2
+			  textstr[2]='(1.4,1.5) Conditioning Example, Conditioning of a Problem/Algorithm <br>Code from class <a href="./matlab/lec3.html">lec3</a></br>';
+			  textstr[3]='(1.4,2) Conditioning of an Algorithm, Introduction to Approximation, Notation for Least Squares Problem';
+			  //Week 3
+			  textstr[4]='(2.1) Normal Equations, Gram-Schmidt<br>Code from class <a href="./matlab/lec5.html">lec5</a>, <a href="./matlab/lec5.m">matlab version</a></br>';
+//			  textstr[4]='(2.1) Least Squares Approximation: Inner Products, Normal Equations, Gram-Schmidt';
+
+			  textstr[5]='(2.1,2.2) Properties of Orthogonal Polynomials,  Evaluating Polynomials,  Polynomial Interpolation<br><a href="https://people.maths.ox.ac.uk/trefethen/mythspaper.pdf">  Six Myths of Polynomial interpolation</a>';
+			  textstr[6]='(2.2.1) Lagrange Interpolation, (2.2.2) Interpolation Error<br>Code from class <a href="./matlab/lec7.html">lec7</a></br>';
+			  // Week 4
+			  textstr[7]='(2.2.3) Convergence for Analytic functions<br>Code from class <a href="./matlab/lec8.html">lec8</a><br>  <a href="https://people.maths.ox.ac.uk/trefethen/ATAP/">  Approximation Theory and Approximation Pracice</a> by Nick Trefethen, has more details on potential theory and interpolating analytic functions.  The book is in principle available for free, that is if you are able to use the matlab publish function.<br> <a href="http://www.maa.org/sites/default/files/images/upload_library/22/Ford/Epperson329-341.pdf"> On the Runge Example</a> by James F. Epperson';
+
+			  textstr[8]='(2.2.4) Chebyshev Polynomials<br>Code from class <a href="./matlab/lec9.html">lec9</a><br><a href="http://www.chebfun.org/">Chebfun, a Matlab package for interpolation using Chebyshev functions</a>';
+			  textstr[9]='(2.2.5) Barycentric form, (2.2.6) Newton form';
+			  //Week 5
+			  textstr[10]='(2.2.7) Hermite Interpolation, (2.2.8) Inverse Interpolation';
+			  textstr[11]='(2.3) Approximation with Splines';
+			  textstr[12]='(2.3) Cubic splines, Optimality of Splines';
+			  //Exam 1
+			  textstr[13]='Snow Day';
+			  textstr[14]='Review';
+			  textstr[15]='Snow Day';
+			  //textstr[16]='Exam over Chapters 1 \& 2';
+			  //// EXAM 1
+			   textstr[16]='(3.1) Numerical Differentiation, Forward/Backward/Centeral Difference, Second Difference';
+			  textstr[17]='(3.1,3.2) Taylor series for Numerical Differentiation,   Numerical Integration: error bounds';
+			  textstr[18]='(3.2) Numerical Integration: Rectangle Rule and it\'s error<br>Code from class <a href="./matlab/lec19.html">lec19</a>';
+			  textstr[19]='(3.2) Numerical Integration: Trapezoid Rule, Simpson\'s Rule, Newton-Cotes';//<br>Code from class <a href="./matlab/lec19.html">lec19</a>';
+			  textstr[20]='(3.2.2) Composite Rules<br>Code from class <a href="./matlab/lec21.html">lec21</a>';
+			  textstr[21]='Snow Day';//'(3.2.3) Properties of Gaussian Quadrature';
+			  textstr[22]='(3.2.4) Gaussian Quadrature';
+			  textstr[23]='(3.2.5) Peano Kernel Error Formula';
+			  textstr[24]='(3.2.5) Extrapolation Methods<br>Code from class <a href="./matlab/lec25.html">lec25</a>';
+			  textstr[25]='Introduction to Nonlinear Equations,  (4.2) Iteration Converegence, (4.3) Bisection,(4.4) Method of False Position';
+			  textstr[26]='(4.5) Secant Method';
+			  textstr[27]='(4.6) Newton\'s Method, Efficency';
+			  textstr[28]='(4.7) Fixed Point Iteration';
+			  textstr[29]='Multipicity and Sensitivity, Intro to Initival Value Problems';
+			  textstr[30]='(4.9) Systems of Nonlinear Equations';
+			  textstr[31]='Fill';
+			  textstr[32]='Exam 2';
+			  //// EXAM 2 Chapters 3 and 4
+			  textstr[30]='(5.1) Initial Value Problems Ordinary Differential Equations';
+			  textstr[31]='(5.6.1) Analysis of Euler\'s Method<br>Code from class <a href="./matlab/lec32.m">Flow Field</a>,<a href="./matlab/lec36.m h">Euler\'s method</a> ';
+			  textstr[32]='(5.6.1)Taylor\'s Method, Improved Euler Methods';
+			  textstr[33]='(5.6)  Runge-Kutta\'s Methods, (5.7) Stability Convegence, Error Asymptotics';
+			  textstr[34]='(5.7) Stability Convegence, (5.9) Stiff Problems, A-Stability<br>Code from class <a href="./matlab/lec35.m">Backward Euler, Trapezoid Rule</a>,<a href="./matlab/lec35a.m h">Regions of Absolute Stability</a>';
+
+			  textstr[35]='A-Stability,  Fixed point iteration versus Newton\'s/secant method for implicit methods';
+			  textstr[36]='Exam 2';
+			  textstr[37]='MultiStep Metods: Midpoint Method';
+			  textstr[38]='Multistep Methods: Midpoint Method, Consistency';
+			  textstr[39]='Multistep Methods: Consistency, Zero-Stability<br>Code from class <a href="./matlab/lec40.m">Midpoint Method, Method from class</a>  ';
+			  textstr[40]='Multistep Methods: Absolute Stability';
+//			  textstr[41]='Intro to Boundary Value Problems';
+			  textstr[42]='Review \& Evaluations<br>';
+			  ///// EXAM 3 Chapters 4 and 5
+			  i=1;
+			  while(i < mydates.length-1 && today >= mydates[i])
+			  {
+			  i++;
+			  }
+			  <!-- i=3;  -->
+			  do
+			  {
+			  <!-- document.write('<div class="row"><td></td></tr><div class="row"><td></td></tr>'); -->
+			  document.write('<div class="row"><div class="leftcell" >Lecture ' + (i+1) + '<br> (' + wkdaystr[mydates[i].getDay()] + ' ' + datestr[i] + ')</div><div class="rightcell" >' + textstr[i] + '</div></div>');
+			  i--;
+			  }
+			  while(i>=0);
+
+		<!-- document.write('</div>'); -->
+	    </script>
+	  </div>
+	</div>
+      </div>
+    </div>
+</body></html>

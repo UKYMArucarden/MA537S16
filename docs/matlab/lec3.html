@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="sprintf.js"></script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> 
+	</script>
+
+<title>Lecture 3</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<hr>
+<h1>Cancellation example \(f(x)=\sqrt{1+x^2}-1\)</h1>
+
+Formula for avoiding cancellation \(\widehat{f}(x)=\frac{x^2}{\sqrt{1+x^2}+1}\)<br>
+<script language="Javascript">
+;
+
+document.write('<pre><tt>');
+document.write(sprintf('%5s %21s  %21s %21s <br>','n','2^{-n}','f','fhat'));
+x=1
+for(n=1;n<=32;n++)
+{
+// Note the ^ operator in Javascript as well as C does bitwise XOR as opposed to pow
+f=Math.sqrt(1+x*x)-1;
+fhat=(x*x)/(Math.sqrt(1+x*x)+1);
+document.write(sprintf('%5d %22.15e  %22.15e %22.15e <br>',n,x,f,fhat));
+x=x/2;
+
+}
+document.write('</pre></tt>');
+
+</script>
+<hr>
+<h1>Recurrence for \(I_n=\int_0^1 \frac{t^n}{t+5}dt\)</h1>
+Results of Forward recurrence<br>
+\(I_n=\frac{1}{n}-5I_{n-1}\)<br>
+<script language="Javascript">
+I={};
+I[0]=Math.log(6/5);
+
+//document.write(sprintf('\\(I_{%3s}\\) == %20.15e <br>','0',I0));
+document.write('<pre><tt>');
+document.write(sprintf('%5s %23s <br>','n','I_n'));
+document.write(sprintf('%5d %23.15e <br>',0,I[0]));
+Inm1=I[0];
+
+for(n=1;n<=35;n++)
+{
+In=1/n-5*Inm1;
+//document.write(sprintf('\(I_{%3s}\) == %21.15e <br>',n,In));
+document.write(sprintf('%5d %23.15e <br>',n,In));
+I[n]=In;
+Inm1=In;
+
+}
+
+document.write('</pre></tt>');
+document.write('Results of Backward recurrence<br>');
+document.write('\\(I_{n-1}=\\frac{1}{5}\\left(\\frac{1}{n}-I_{n}\\right)\\)<br>');
+
+
+Inpk=0;
+nmax=35;
+npk=nmax+22;
+Iback={};
+Iback[npk]=Inpk
+In=Inpk;
+document.write(n)
+for(n=npk;n>0;n--)
+{
+Inm1=1/5*(1/n-In);
+Iback[n-1]=Inm1;
+In=Inm1;
+}
+
+document.write('<pre><tt>');
+document.write(sprintf('%5s %23s %23s<br>','n','Forward I_n','Backward I_n'));
+
+for(n=0;n<=35;n++)
+{
+document.write(sprintf('%5d %23.15e %+23.15e <br>',n,I[n],Iback[n]));
+}
+    document.write('</pre></tt>');
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<script type="text/javascript" src="sprintf.js"></script>
+	<script type="text/javascript" src="../MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+
+	<script type="text/javascript" src="numeric-1.2.6.js"></script>
+	<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.96/jsxgraphcore.js"></script> -->
+	<link rel="stylesheet" type="text/css" href="../jsxgraph.css" />
+	<link rel="stylesheet" type="text/css" href="../example_style.css" />
+	<script type="text/javascript" src="../jsxgraphcore.js"></script>	
+
+	<title>Lecture 7</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+	<div class="main">
+	<hr>
+	<h1>Interpolation Error</h1>
+	<hr>
+	Error Formula for polynomial Interpolation
+	\[f(x)-p(x)=\frac{f^{(n+1)}(c)}{(n+1)!}\prod_{i=0}^{n+1}(x-x_i)\]
+	Assuming \(f\in C^{n+1}[a,b]\) and \(c\) is some point in \((a,b)\).
+
+	\(n=\)
+	<input style="border:none; background-color:#00efef;padding:5px;margin-left:2px;text-align:right" type="text" id="degree" value="2" size="10" onchange="func(Number(document.getElementById('degree').value),(document.getElementById('cheb')).checked)"/>
+	<input type="checkbox" id="cheb" />Use Chebyshev points
+
+	<figure style="border:1px solid;">
+	    <div style="text-align:center"> 
+	    </div>
+	    <div id="jxgbox" class="jxgbox" style="width:500px; height:20em;margin-left: auto; margin-right: auto;"></div>
+	    <div style="text-align:center;padding-top:1em"> 
+		<figcaption>  
+		</figcaption>
+	    </div>
+	</figure>
+
+	<script language="Javascript">
+	 function linspace(a,b,N){
+	     var h=(b-a)/(N-1);
+	     // Prealllocate 
+	     var out = new Float64Array(N);
+	     // No Preallocation 
+	     // out=[];
+	     for(i=0;i< N;i++){
+		 //Preallocation
+		 out[i]=(a+i*h);
+		 //No Preallocation
+		 //out.push(a+i*h);
+	     }
+	     //Preallocate, must convert to regular array
+	     return(Array.prototype.slice.call(out));
+	     //No Preallocation, no conversion necessary
+	     //return(out);
+	 }
+
+	 //	 document.write('<pre><tt>');
+
+	 xmin=-1.1;
+	 xmax=1.1;
+	 //Apparentlly Max's and Min's behave horribly in Javascript
+	 ymax=1;
+	 ymin=-30;
+
+	 var plot = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [xmin, ymax,xmax, ymin], axis:true,showCopyright:0});
+	 
+
+	 n=Number(document.getElementById('degree').value)
+	     //	 document.write(n);
+	     //	 n=10;
+	     flag=document.getElementById('cheb').checked
+	 func(n,flag);
+	 //setTimeout(func,3000);
+
+	 function func(n,flag){
+	     //	     document.write(n)
+             //Will plot on interval [0,1]
+	     //	     document.write(flag)
+	     if(flag) //(flag==0)
+	     {
+		 xnodes=linspace(1/(2*n+2)*Math.PI,(2*n+1)/(2*n+2)*Math.PI,n+1)
+	             xnodes=numeric.cos(xnodes)
+		     //		     document.write(xnodes);
+
+		 x0=xnodes[0];
+		 xn=xnodes[n];
+	     }
+	     else
+	     {
+		 x0=-1;
+		 xn=1;
+		 xnodes=linspace(x0,xn,n+1);
+		 //Insert Chebyshev points
+	     }
+
+	     // plotting points
+	     xvals=linspace(xmin,xmax,1000);
+	     //Hack to Initialize vector of ones 
+             yvals=numeric.add(numeric.mul(xvals,0),1);
+	     //Evaluate error polynomial
+             for(i=0;i<=n;i++)
+	     {
+		 yvals=numeric.mul(yvals,numeric.sub(xvals,xnodes[i]));
+	     }
+	     yvals=numeric.abs(yvals);
+	     yvals=numeric.div(numeric.log(yvals),Math.log(10));
+	     //plot.create('functiongraph',[function(x){return Math.log(x);}],{strokeColor: 'red',strokeWidth:3,dash:0});
+	     // plot.create('functiongraph',[function(x){return Math.pow(x,m);}],{strokeColor: 'red',strokeWidth:3,dash:0});
+	     //	     y=x.map(function(x){yval=c[n-1];  for(i=n-1;i>0;i--){ yval=yval*x+c[i-1]; } return(yval)});
+	     //	     y=x.map(function(x){yval=c[n-1];  for(i=n-1;i>0;i--){ yval=yval*x+c[i-1]; } return(yval)});
+	     if(typeof(theplot) != "undefined" )
+	     {
+		 plot.removeObject(theplot);
+	     }
+             theplot= plot.create('curve',[xvals,yvals],{strokeColor: 'blue',strokeWidth:3,dash:0});
+
+	     //		 n=n+1;
+	     //		 if(n<40)
+	     //		     {
+	     //		 		 setTimeout(func,3000);
+	     //}
+	 }
+	 //	 plot.create('functiongraph',[function(x){yval=c[n-1];  for(i=n-1;i>0;i--){ yval=yval*x+c[i-1]; } return(yval)}],{strokeColor: 'blue',strokeWidth:3,dash:0});
+	</script>
+
+	</div>
+    </body>
+</html>

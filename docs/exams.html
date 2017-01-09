@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head> <title>Exams - MA/CS/EGR 537-002 - University of Kentucky - Spring 2017 </title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet"
+          href="class_style2.css"
+          type="text/css">
+  </head>
+  <body >
+    <div class="toptable">
+      <div class="table-row">
+	<h1 style="text-align: center;">
+	  MA/CS/EGR 537-002 &#183; Numerical Analysis  
+	</h1>
+	<h2 style="text-align: center;">
+	  Spring 2017  &#183; University of Kentucky
+	</h2>
+      </div>
+      <div class="row">
+	<div class="center" style="text-align:center;">
+	  <h3>
+	    <a href="index.html">MAIN PAGE</a> &nbsp;
+	    //&nbsp;
+	    <a href="lectures.html">LECTURES</a> &nbsp; 
+	    //&nbsp;
+	    <a href="homework.html">PROBLEM SETS</a> &nbsp;
+	    //&nbsp; <a href="exams.html"><b>EXAMS</b></a>
+	    &nbsp;
+
+	  </h3>
+	</div>
+      </div>
+      <div class="main">
+	<div id="table-row">
+	  <div class="table-cell" style="atext-align:center"> Exams
+	    account for at least 20% of the final grade.  The first
+	    will occur in mid-February, the second in late March and
+	    the last during finals period.  At least two of the exams
+	    will occur in class.  One of the exams may be take-home
+	    exam.
+	  </div>
+	</div>
+      </div>
+      <br>
+      <div class="table-row">
+	<div class="table-cell">
+	  <div class="main" style="border-collapse:separate;border-spacing: 0 1em;min-width:45em">
+	    <script type="text/javascript">
+
+	      // today's date
+	      var year = "2017";
+	      var today = new Date();
+	      // var today = new Date(2013,5,1); // for testing purposes
+	      // dates for the exams
+	      var pdate= ['2/13','4/3'];//,'4/24']; // practice exam post date
+	      var prdate = ['2/13','4/3'];//,'4/3','4/24']; // exam post dates
+	      var ddate = ['2/16','4/17'];//,'4/6','4/27']; // exam solution post dates
+
+	      // which lectures they cover
+	      var lecstr = ['1-12','14-29','28-40'];
+	      var examstr=[];
+	      examstr[0]=['Covers Chapters 1 and 2 but not including splines.  '];
+	      examstr[1]='The exam will be over numerical intergration, numerical differentiation and root finding.  The exam will be in class on April 24, 2017';
+	      // notes
+	      var notes = ['','',''];
+
+	      // generate date objects
+	      var practicedate = [];
+	      var postdate = [];
+	      var duedate = [];
+	      for(i=0;i<pdate.length;i++)
+			  {
+			  practicedate[i] = new Date(prdate[i]+'/'+year);
+			  postdate[i] = new Date(pdate[i]+'/'+year);
+			  duedate[i] = new Date(ddate[i]+'/'+year);
+			  }
+			  wkdaystr=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+			  //for(i=postdate.length-1;i>=0;i--)
+
+		for(i=2;i>=0;i--)
+		{
+
+		//    document.write(practicedate[i]);
+		if (today >= practicedate[i])
+		{
+		document.write('<div class="row">');
+		  document.write('<div class="leftcell" style="width:20%;border-spacing:20em">');   
+		    document.write('Exam ' + (i+1) + ':');
+		    document.write('</div>');
+		  document.write('<div class="rightcell" style="padding-left:0em;max-width:35 em;">');
+
+		    //		    if (today >= postdate[i])
+		    //		    {
+		    //		    document.write('Exam:   <a href="exams/exam' + (i+1) + '.pdf">exam' + (i+1) + '.pdf</a>.<br>');
+		    document.write('In class on:   ' + ddate[i] + ' and cover Lectures ' + lecstr[i] + '.<br>');
+		    
+		    document.write(examstr[i]);
+//<a href="exams/exam' + (i+1) + '_practice.pdf">Review</a> ');
+		    //		    document.write(' <a href="exams/exam' + (i+1) + '_practice.pdf">Review</a>');
+		    document.write(
+		    notes[i]);
+		    document.write('</div></div>');
+		}
+		}
+	    </script>
+	  </div>
+	</div>
+      </div>
+    </div>
+</body></html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<script type="text/javascript" src="sprintf.js"></script>
+	<script type="text/javascript" src="../MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+
+	<script type="text/javascript" src="numeric-1.2.6.js"></script>
+	<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.96/jsxgraphcore.js"></script> -->
+	<link rel="stylesheet" type="text/css" href="../jsxgraph.css" />
+	<link rel="stylesheet" type="text/css" href="../example_style.css" />
+	<script type="text/javascript" src="../jsxgraphcore.js"></script>	
+
+	<title>Lecture 8</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+	<div class="main">
+	<hr>
+	<h1>Runge's Example</h1>
+	<hr>
+	\(f=\frac{1}{1+x^2}\), since \(f\) has poles at \(x=\pm i\),<br>
+	we cannot expect \(p_n\rightarrow f\) if the interval is large.
+	\(n=\)
+	<input style="border:none; background-color:#00efef;padding:5px;margin-left:2px;text-align:right" type="text" id="degree" value="2" size="10" onchange="func(Number(document.getElementById('degree').value),(document.getElementById('cheb')).checked)"/>
+	<input type="checkbox" id="cheb" />Use Chebyshev points
+
+	<figure style="border:1px solid;">
+	    <div style="text-align:center"> 
+	    </div>
+	    <div id="jxgbox" class="jxgbox" style="width:500px; height:20em;margin-left: auto; margin-right: auto;"></div>
+	    <div style="text-align:center;padding-top:1em"> 
+		<figcaption>  
+		</figcaption>
+	    </div>
+	</figure>
+
+	<script language="Javascript">
+	 function f(x){
+	     return(1/(1+x*x));
+	 }
+	 function linspace(a,b,N){
+	     var h=(b-a)/(N-1);
+	     // Prealllocate 
+	     var out = new Float64Array(N);
+	     // No Preallocation 
+	     // out=[];
+	     for(i=0;i< N;i++){
+		 //Preallocation
+		 out[i]=(a+i*h);
+		 //No Preallocation
+		 //out.push(a+i*h);
+	     }
+	     //Preallocate, must convert to regular array
+	     return(Array.prototype.slice.call(out));
+	     //No Preallocation, no conversion necessary
+	     //return(out);
+	 }
+
+	 //	 document.write('<pre><tt>');
+
+	 xmin=-5;
+	 xmax=5;
+	 ymax=5;
+	 ymin=-1;
+
+	 var plot = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [xmin, ymax,xmax, ymin], axis:true,showCopyright:0});
+	 
+
+	 n=Number(document.getElementById('degree').value);
+	 //	 document.write(n);
+	 //	 n=10;
+	 flag=document.getElementById('cheb').checked;
+	 // plotting points
+	 xvals=linspace(xmin,xmax,1000);
+	 ytrue=xvals.map(f); 
+	 plot.create('curve',[xvals,ytrue],{strokeColor: 'red',strokeWidth:3,dash:0});
+
+	 func(n,flag);
+	 //setTimeout(func,3000);
+
+	 function func(n,flag){
+	     //	     document.write(n)
+             //Will plot on interval [0,1]
+	     //	     document.write(flag)
+scale=5;
+	     if(flag==true) //(flag==0)
+	     {
+		 xnodes=linspace(1/(2*n+2)*Math.PI,(2*n+1)/(2*n+2)*Math.PI,n+1);
+	         xnodes=numeric.cos(xnodes)
+//		     document.write(xnodes);
+
+		 x0=scale*xnodes[0];
+		 xn=scale*xnodes[n];
+		 xnodes=numeric.mul(xnodes,scale);
+	     }
+	     else
+	     {
+		 x0=-1*scale;
+		 xn=1*scale;
+		 xnodes=linspace(x0,xn,n+1);
+		 //Insert Chebyshev points
+	     }
+
+	     //Hack to Initialize vector of zeroes
+             yvals=numeric.mul(xvals,0);
+	     //Evaluate Lagrange polynomial
+             for(i=0;i<=n;i++)
+	     {
+		 //Evaluate ith elementary lagrange polynomial
+		 term=numeric.add(numeric.mul(xvals,0),f(xnodes[i]));			 
+	         for(j=0;j<=n;j++){
+		     if(i!=j){
+			 term=numeric.mul(term,numeric.sub(xvals,xnodes[j]));
+			 term=numeric.mul(term,1/(xnodes[i]-xnodes[j]));
+		     }
+		 }
+		 yvals=numeric.add(yvals,term);
+	     }
+             
+	     if(typeof(theplot) != "undefined" )
+	     {
+		 plot.removeObject(theplot);
+	     }
+
+             theplot=plot.create('curve',[xvals,yvals],{strokeColor: 'blue',strokeWidth:3,dash:0});
+
+
+	     //		 n=n+1;
+	     //		 if(n<40)
+	     //		     {
+	     //		 		 setTimeout(func,3000);
+	     //}
+	 }
+	 //	 plot.create('functiongraph',[function(x){yval=c[n-1];  for(i=n-1;i>0;i--){ yval=yval*x+c[i-1]; } return(yval)}],{strokeColor: 'blue',strokeWidth:3,dash:0});
+	</script>
+
+	</div>
+    </body>
+</html>

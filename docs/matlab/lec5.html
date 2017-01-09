@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<script type="text/javascript" src="sprintf.js"></script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+
+	<script type="text/javascript" src="numeric-1.2.6.js"></script>
+	<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.96/jsxgraphcore.js"></script> -->
+		 <link rel="stylesheet" type="text/css" href="jsxgraph.css" />
+	<script type="text/javascript" src="../jsxgraphcore.js"></script>	
+
+	<title>Lecture 5</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+	<hr>
+	<h1>Least Squares example</h1>
+
+	Using monomial Basis \(\pi_i=t^{i-1}\)
+	In this case \(A\) is the Hilbert matrix.<br>
+	Let \(f=\ln(x)\), then \((\pi_i,f)=-1/i^2\)<br>
+	<figure style="border:1px solid;">
+	    <div style="text-align:center"> 
+		Least squares approximation to \(\ln x\) on \([0,1]\)
+	    </div>
+	    <div id="jxgbox" class="jxgbox" style="width:500px; height:20em;margin-left: auto; margin-right: auto;"></div>
+	    <div style="text-align:center;padding-top:1em"> 
+		<figcaption>  
+		</figcaption>
+	    </div>
+	</figure>
+
+	<script language="Javascript">
+	 function linspace(a,b,N){
+	     var h=(b-a)/(N-1);
+	     // Prealllocate 
+	     var out = new Float64Array(N);
+	     // No Preallocation 
+	     // out=[];
+	     for(i=0;i< N;i++){
+		 //Preallocation
+		 out[i]=(a+i*h);
+		 //No Preallocation
+		 //out.push(a+i*h);
+	     }
+	     //Preallocate, must convert to regular array
+	     return(Array.prototype.slice.call(out));
+	     //No Preallocation, no conversion necessary
+	     //return(out);
+	 }
+
+	 document.write('<pre><tt>');
+	 //A is a matrix, it is stored columnwise
+	 n=80;
+	 //=5;
+	 A=new Array(n);
+	 b=new Array(n);
+	 for(i=0;i<n;i++)
+	 {
+	     col=new Array(n);
+	     for(j=0;j<n;j++)
+	     {
+		 col[j]=1/(i+j+1);
+	     }
+	     A[i]=col;
+	     b[i]=-1/Math.pow(i+1,2);
+	     //b[i]=1/(m+i+1);
+	 }
+	 document.write(sprintf('%15s %15s %15s %15s',' ', 'A',' ' ,'b')+'<br>');
+	 for(i=0;i<n;i++)
+	 {
+	     for(j=0;j<n;j++)
+	     {
+		 document.write(sprintf('%15.9f ',A[i][j]));
+	     }
+	     document.write(' '+sprintf('%15.9f',b[i])+'<br>')
+	 }
+	 c=numeric.solve(A,b)
+	     //document.write('c=[')
+	     for(i=0;i<n-1;i++)
+	 {
+	     document.write(sprintf('%15.9f,', c[i]))
+	 }
+	 //document.write(sprintf('%15.9f]^T<br>', c[n-1]))
+	 for(i=0;i<n;i++)
+	 {
+	     //document.write(' '+c[i]+'<br>')
+	 }
+	 document.write('<br>');
+	 //document.write(A);
+	 
+	 document.write('</pre></tt>');
+	 xmin=-.3;
+	 xmax=1.1;
+	 ymax=.5;
+	 ymin=-5;
+	 N=1000;
+	 x=linspace(xmin,xmax,N);
+
+	 var plot = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [xmin, ymax,xmax, ymin], axis:true,showCopyright:0});
+	 y=x.map(Math.log); 
+	 plot.create('functiongraph',[function(x){return Math.log(x);}],{strokeColor: 'red',strokeWidth:3,dash:0});
+	 // plot.create('functiongraph',[function(x){return Math.pow(x,m);}],{strokeColor: 'red',strokeWidth:3,dash:0});
+	 //	     y=x.map(function(x){yval=c[n-1];  for(i=n-1;i>0;i--){ yval=yval*x+c[i-1]; } return(yval)});
+	 //	     y=x.map(function(x){yval=c[n-1];  for(i=n-1;i>0;i--){ yval=yval*x+c[i-1]; } return(yval)});
+	 //	     plot.create('curve',[x,y],{strokeColor: 'blue',strokeWidth:3,dash:0});
+	 plot.create('functiongraph',[function(x){yval=c[n-1];  for(i=n-1;i>0;i--){ yval=yval*x+c[i-1]; } return(yval)}],{strokeColor: 'blue',strokeWidth:3,dash:0});
+	 Ainv=numeric.inv(A);
+	 Aabs=numeric.abs(Ainv);
+	 //numeric.dot(Aabs,x*0+1);
+	 norminfAinv=numeric.norminf(numeric.dot(Aabs,numeric.add(numeric.mul(x,0),1)));
+	 norminfA=numeric.norminf(numeric.dot(numeric.abs(A),numeric.add(numeric.mul(x,0),1)));
+	 condinf=norminfAinv*norminfA;
+	 document.write(sprintf('%15.9e',condinf))
+	</script>
+
+
+    </body>
+</html>

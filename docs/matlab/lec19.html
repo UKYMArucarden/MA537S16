@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<script type="text/javascript" src="sprintf.js"></script>
+	<script type="text/javascript" src="../MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+
+	<script type="text/javascript" src="numeric-1.2.6.js"></script>
+	<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.96/jsxgraphcore.js"></script> -->
+	<link rel="stylesheet" type="text/css" href="../jsxgraph.css" />
+	<link rel="stylesheet" type="text/css" href="../example_style.css" />
+	<script type="text/javascript" src="../jsxgraphcore.js"></script>	
+
+	<title>Lecture 19</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+	<div class="main">
+	<hr>
+	<h1>Numerical Differentiation</h1>
+	<hr>
+	Forward Difference
+	\(f'(x)\approx\frac{f(x+h)-f(x)}{h}\), which is \(O(h)\)<br>      
+	Cancellation should become an issue around \(O(\mathrm{eps}^{\frac{1}{2}})\approx 10^{-8}\)<br>
+
+	Central Difference
+	\(f'(x)\approx \frac{f(x+h)-f(x-h)}{2h}\), which is \(O(h^2)\)<br>      
+	Cancellation should become an issue around \(O(\mathrm{eps}^{\frac{1}{3}})\approx 10^{-5}\)<br>
+
+	for \(f=e^x\), \(x=0\) and \(h=10^{-i}\)<br>
+	<figure style="border:1px solid;">
+	    <div style="text-align:center"> 
+	    </div>
+	    <div id="jxgbox" class="jxgbox" style="width:500px; height:20em;margin-left: auto; margin-right: auto;"></div>
+	    <div style="text-align:center;padding-top:1em"> 
+		<figcaption>  
+		</figcaption>
+	    </div>
+	</figure>
+
+	<script language="Javascript">
+	 function linspace(a,b,N){
+	     var h=(b-a)/(N-1);
+	     // Prealllocate 
+	     var out = new Float64Array(N);
+	     // No Preallocation 
+	     // out=[];
+	     for(i=0;i< N;i++){
+		 //Preallocation
+		 out[i]=(a+i*h);
+		 //No Preallocation
+		 //out.push(a+i*h);
+	     }
+	     //Preallocate, must convert to regular array
+	     return(Array.prototype.slice.call(out));
+	     //No Preallocation, no conversion necessary
+	     //return(out);
+	 }
+
+	 //	 document.write('<pre><tt>');
+
+	 xmin=0;
+	 xmax=15;
+	 ymax=1;
+	 ymin=-15;
+
+	 var plot = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [xmin, ymax,xmax, ymin], axis:true,showCopyright:0});
+	 
+
+			//	 n=Number(document.getElementById('degree').value);
+	 //	 document.write(n);
+	 //	 n=10;
+	 // plotting points
+			//	 xvals=linspace(xmin,xmax,2000);
+
+        //Derivative at $x=0$.
+	 x=0;
+	 hvec=[];
+	 fordiff=[];
+	 centdiff=[];
+	for(i=0;i<160;i++)
+	 {
+	     h=Math.pow(10,-i/10);
+	     hvec[i]=i/10;
+	     fordiff[i]=Math.log10(Math.abs((Math.exp(x+h)-Math.exp(x))/h-1));
+	     centdiff[i]=Math.log10(Math.abs((Math.exp(x+h)-Math.exp(x-h))/(2*h)-1));
+	     document.write(hvec[i]+' '+ h+' ' +fordiff[i]+'<br>')
+         }
+	 
+         theplot=plot.create('curve',[hvec , fordiff ],{strokeColor: 'blue',strokeWidth:3,dash:0});
+         theplot=plot.create('curve',[hvec , centdiff ],{strokeColor: 'blue',strokeWidth:3,dash:0});
+
+
+			//	 func(n);
+	 //setTimeout(func,3000);
+         
+	 plot.update();
+	</script>
+
+	</div>
+    </body>
+</html>

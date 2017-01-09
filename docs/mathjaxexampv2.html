@@ -1,0 +1,188 @@
+<html>
+    <head>
+	<!-- If you install math jax locally, which by the way is easy to do  -->
+	<!-- uncomment the following  -->
+	<!-- <script type="text/javascript" src="./MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> ->-
+		<!-- If you want the content deilvery network  to take care of everything  -->
+	<!-- uncomment the following  -->
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> 
+	</script>
+        <!-- The sprintf function was found at http://www.westhoffswelt.de/blog/2010/6/20/sprintfjs-an-almost-feature-complete-sprintf-implementation  -->
+	<script type="text/javascript" src="https://rawgit.com/rucarden/sprintf.js/master/src/sprintf.js"></script>
+	<!-- Uncomment next two lines for a local copy of JSXGraph for plotting ->>
+		<!--  <link rel="stylesheet" type="text/css" href="jsxgraph.css" /> -->
+	<script type="text/javascript" src="jsxgraphcore.js"></script>	<!-- Uncomment following line for cdn version of JSXGraph -->
+	<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.96/jsxgraphcore.js"></script> -->
+	<title>Your Name, email@address.com,HW 1 </title>
+    </head>
+    <body>
+	<div class="table" style="max-width:45em;margin:auto">
+	    <h2>Your Name, email@address.com,HW 1 </h2> 
+
+	    In this document I am illustrating how you might use html, javascript and
+	    MathJax to code up your homework.<br>
+	    <!-- Note that MathJax by default uses \( and \) to delimit inline expressions-->
+	    <b>Problem 1</b>. Taylor Theorem for \(f(x)=e^x\) in html: 
+	    First recall that 
+	    \[\frac{d^{i}f}{dx^i}=f^{(i)}(x)=e^x,\]
+	    which is a consequence of the derivative of \(e^x\) being \(e^x\).
+	    From Taylor's Theorem, we have
+	    \[f(x)= e^x,\]
+	    <!-- Note that either \[ \] or \begin{equation} \end{equation} can be used to delimit an equation-->
+	    \[=\sum_{i=0}^\infty\frac{x^i}{i!}\tag{1}\]
+	    <!-- Note the use of tag to manually add an equation  number -->
+	    \begin{equation}
+
+	    =\sum_{i=0}^n\frac{x^i}{i!}+\frac{1}{n!}\int_0^xx^{n}e^tdt,\tag{2}
+	    \end{equation}
+
+	    \[\label{testlabel}
+	    =\sum_{i=0}^n\frac{x^i}{i!}+\frac{x^{n+1}}{(n+1)!}e^{c_x}.\tag{3}\]
+
+	    Let \(R(x)=\frac{x^{n+1}}{(n+1)!}e^{c_x}\) denote the derivative form of
+	    <!-- Example of how to reference labeled equation above --> 
+
+	    the error in Taylor's Theorem applied to \(e^x\), the second term in
+	    equation (\ref{testlabel}).  For \(x\geq 0\) we have the following
+	    bound
+
+	    \[ 0\leq R(x) \leq \frac{x^{n+1}}{(n+1)!}e^{x}\leq\frac{x^{n+1}}{(n+1)!}3^{x},\]
+	    Where we have used three as an upper bound for \(e\), and the quantity on the right can easily be computed provided we have a function for computing powers.
+	    Plot of \(e^x\) and its degree two Taylor polynomial about \(x=0\).<br>
+
+	    <figure style="border:1px solid;">
+		<div style="text-align:center"> 
+		    Quadratic Approximation to \(e^x\)
+		</div>
+		<div id="jxgbox" class="jxgbox" style="width:500px; height:20em;margin-left: auto; margin-right: auto;"></div>
+		<div style="text-align:center;padding-top:1em"> 
+		    <figcaption>  
+			Red - \(e^x\), Blue - \(p_2(x)\)
+		    </figcaption>
+		</div>
+	    </figure>
+	    <figure style="border:1px solid;">
+		<div style="text-align:center"> 
+		    Error in Quadratic Approximation to \(e^x\)</div>
+		<div id="jxgbox2" class="jxgbox" style="width:500px; height:20em;margin-left: auto; margin-right: auto;"></div>
+		<div style="text-align:center;padding-top:1em"> 
+		    <figcatption>  
+			Red - \(\log_{10}|e^x-p_2(x)|\)
+		    </fig_caption>
+		</div>
+	    </figure>
+	    <br>
+	    Code for plot:
+	    <script type="text/javascript">
+	     function linspace(a,b,N){
+		 var h=(b-a)/(N-1);
+		 // Prealllocate 
+		 var out = new Float64Array(N);
+		 // No Preallocation 
+		 // out=[];
+		 for(i=0;i< N;i++){
+		     //Preallocation
+		     out[i]=(a+i*h);
+		     //No Preallocation
+		     //out.push(a+i*h);
+		 }
+		 //Preallocate, must convert to regular array
+		 return(Array.prototype.slice.call(out));
+		 //No Preallocation, no conversion necessary
+		 //return(out);
+	     }
+	     Array.max = function( array ){
+		 return Math.max.apply( Math, array );
+	     };
+	     Array.min = function( array ){
+		 return Math.min.apply( Math, array );
+	     };
+	     Array.sub = function( array1, array2 ){
+		 var out = new Float64Array(N);	      
+		 for(i=0;i<N;i++){
+		     out[i]=array1[i]-array2[i];}
+		 return(Array.prototype.slice.call(out));
+	     };
+	     
+	     function f(x){
+		 return(Math.exp(x));
+	     }
+	     xmin=-1.2;
+	     xmax=1.2;
+	     N=20;
+	     x=linspace(xmin,xmax,N);
+	     //Use map to apply f to every entry of x
+	     y=x.map(f); 
+	     //For generating 1st plot
+	     //Initializes axis
+	     ymax=Array.max(y)+.1;
+	     ymin=Array.min(y)-.1;
+             //document.write(ymax);
+			     var plot = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [xmin, ymax,xmax, ymin], axis:true,showCopyright:0});
+	     // Create the plot
+	     plot.create('curve',[x,y],{strokeColor: 'red',strokeWidth:3,dash:0});
+<!-- plot.create('legend',[1,1],{labels:['e^x','p_2(x)'],colors:['red','blue'],strokewidth:1,linelength:10,rowheight:30}); -->
+	     //Taylor polynomial of degree 2 about x=0
+	     function p2(t){return(1+t+Math.pow(t,2)/2);}
+	     y2=x.map(p2);
+	     //Add Taylor polynomial of degree 2 to plot
+	     plot.create('curve',[x,y2],{strokeColor: 'blue',strokeWidth:3,dash:2});
+	     // Add points 
+	     for(i=0;i<x.length;i++){
+		 plot.create('point',[x[i],y2[i]],{size:1,strokeColor: 'blue',name:'',fixed:true});
+	     }
+	     // Finished First plot
+	     // Second plot: Error Plot
+	     function logdiff(y,y2){return(Math.log(Math.abs(y-y2)));}
+	     error=((Array.sub(y,y2)).map(Math.abs));
+			 logerror=error.map(Math.log10);
+			 error=logerror;
+	     ymax=Array.max(error)+.1;
+	     ymin=Array.min(error)-.1;
+			 var plot = JXG.JSXGraph.initBoard('jxgbox2', {boundingbox: [xmin, ymax,xmax, ymin], axis:true,showCopyright:0});
+
+			 plot.create('curve',[x,error],{strokeColor: 'red',strokeWidth:3,dash:0});
+	     // Add points 
+	     for(i=0;i<x.length;i++){
+			 plot.create('point',[x[i],error[i]],{size:2,strokeColor: 'red',name:'',fixed:true});
+	     }
+	     // Finished First plot
+	     // Generate table of data
+	     document.write("<br>");
+	     document.write("<pre><tt>");
+             document.write(sprintf('%10s %10s %10s %13s\n','x','e^x','p_2(x)','|e^x-p_2(x)|'));
+	     for(i=1;i<x.length;i++)
+	     {
+		 document.write(sprintf('%10.7f %10.7f %10.7f %13.7f\n',x[i],y[i],y2[i],error[i]));
+
+	     }
+	     document.write("</tt></pre>");
+	    </script>
+
+	    To See the code for generating the figures, look at the source code of this page.
+	    <br>
+	    <b> Problem 2</b> Much of what we do in this course generalizes to
+	    large sets of data.  For large data, it is more convenient to use of
+	    matrix notation.  (If you are interested in the numerical methods and analysis involving matrices, please sign up for MA 522 or MA 622.)  A system of equations of the form
+
+	    \begin{array}{cccc}
+	    a_{11}x_1&+a_{12}x_2&+a_{13}x_3&=b_1,\\
+	    a_{21}x_1&+a_{22}x_2&+a_{23}x_3&=b_2,\\
+	    a_{31}x_1&+a_{32}x_2&+a_{33}x_3&= b_3,
+	    \end{array}
+	    Would be written as
+
+	    \[Ax=b,\mbox{ where }\]
+	    <br>
+	    \[
+	    A=\left[\begin{array}{ccc} 
+	    a_{11}& a_{12}&a_{13}\\
+	    a_{21}& a_{22}&a_{23}\\
+	    a_{31}& a_{32}&a_{33}\\
+	    \end{array}\right],x=\left(\begin{array}{c}x_1\\x_2\\x_3\end{array}\right)\mbox{ and }
+	    b=\left(\begin{array}{c}b_1\\b_2\\b_3\end{array}\right).
+	    \]
+
+	</div>
+    </body>
+</html>

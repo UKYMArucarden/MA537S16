@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head> <title>Problem Sets - MA/CS/EGR 537-002 - University of Kentucky - Spring 2017 </title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet"
+          href="class_style2.css"
+          type="text/css">
+  </head>
+  <body >
+    <div class="toptable">
+      <div class="table-row">
+	<h1 style="text-align: center;">
+	  MA/CS/EGR 537-002 &#183; Numerical Analysis  
+	</h1>
+	<h2 style="text-align: center;">
+	  Spring 2017  &#183; University of Kentucky
+	</h2>
+      </div>
+      <div class="row">
+	<div class="center" style="text-align:center;">
+	  <h3>
+	    <a href="index.html">MAIN PAGE</a> &nbsp;
+	    //&nbsp;
+	    <a href="lectures.html">LECTURES</a> &nbsp; 
+	    //&nbsp;
+	    <a href="homework.html"><b>PROBLEM SETS</b></a> &nbsp;
+	     //&nbsp; <a href="exams.html">EXAMS</a>
+	     &nbsp;
+
+	  </h3>
+	</div>
+      </div>
+      <!-- <h2 style="text-align:center;">Problem Sets</h2> -->
+      <div class="main">
+	<div id="table-row">
+	  <div class="table-cell" style=""> 
+	    Problem sets will be assigned every
+	    week.  You may collaborate on the problems, but your
+	    write-ups must be your own independent work.  Transcribed
+	    solutions are unacceptable.
+	  </div>
+	</div>
+      </div>
+      <br>
+      <div class="table-row">
+	<div class="table-cell">
+	  <div class="main" style="border-collapse:separate;border-spacing: 0 1em;min-width:45em">
+	    <!-- <div class="row"><div class="leftcell"> -->
+	    <script type="text/javascript">
+	      // today's date
+	      var year = "2017";
+	      var today = new Date();
+	      //var today = new Date(2013,5,1); // for testing purposes
+	      // dates for the problem sets
+	      var pdate = ['1/10','1/17','1/24','1/31','2/7','2/14','2/21','2/28','3/7','3/21','3/28','4/4','4/11','4/18'];//,'3/13','3/27','4/10','4/17'];
+	      var ddate = ['2/2','1/31','2/9','2/23','3/9','3/16','4/4','4/29'];//,'3/28','4/4','4/18','4/25'];
+
+	      // generate date objects
+	      var postdate = [];
+	      var duedate = [];
+	      for(i=0;i<pdate.length;i++)
+			  {
+			  postdate[i] = new Date(pdate[i]+'/'+year);
+			  duedate[i] = new Date(ddate[i]+'/'+year);
+			  }
+			  wkdaystr=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+			  // the strings to be printed in the table
+			  var poststr = [];
+			  var solstr = [];
+
+			  // homework 1
+
+			  poststr[0]='<br>Topics for this assignment<br><ul><li>Binary and double precision form of a number<li> Avoiding loss-of-significance by rearranging a computation<li>Propogation errors </ul> Code for rounding to single precision: <a href="./matlab/chop.m"><tt>chop.m</tt></a><br>Notes for Solution: <a href="./homework/hw1.html">hw1</a>';
+			  solstr[0]='';
+
+			  // homework 2
+
+			  poststr[1]='<br>Please try to attempt problems that cover the following concepts:<br><ul><li>How to assess the conditioning of a problem<li> Properties of monic orthognal polynomials<li>Best Approximation<li> Least Squares approximation </ul>Notes for Solution: <a href="./homework/hw2.html">hw2</a>';
+			  solstr[1]='';
+
+			  // homework 3
+			  poststr[2]='<br>Please try to attempt problems that cover the following concepts:<br><ul><li>Polynomial Interpolation<li> Bounding Error in Polynomial Interpolation<li>Chebyshev Polynomials and their application to approximation via interpolation and least squares<li> Newton\'s formula for interpolation and divided differences <li> Hermite Interpolation (Depends on how far we get in class)</ul>Notes for Solution: <a href="./homework/hw3.html">hw3</a>';
+
+
+			  solstr[2]='';
+
+			  // homework 4
+
+			  poststr[3]='<br>Please try to attempt problems that cover the following concepts:<br><ul><li>Properties of Divided Differences<li> Types of spline approximations: line, quadratic, Cubic, Complete, not-a-knot <li> Computing a spline approximation</ul>';
+			  solstr[3]='';
+
+			  // homework 5
+ 
+			  poststr[4]='<br>Please try to attempt problems that cover the following concepts:<br><ul><li> How to derive numerical differentiation rules <li>How to use integration rule to approximate an integral in particular the Trapezoid Rule and Simpson\'s rule<li> How determine the error of integration rule both numerically and analytically <li> How to derive Newton-Cotes Composite Quadrature rules </ul> Tex File <a href="./homework/hw5.tex">hw5</a>';
+			  solstr[4]='';
+
+			  // homework 6
+
+			  poststr[5]='<br>Please try to attempt problems that cover the following concepts:<br><ul><li> High precision quadrature rules  <li>Deriving a Gaussian quadrature rule for a given weight function <li> Properties of Orthogonal Polynomials <li> Method of Undetermined Coefficients <li> Peano Kernel Analysis of a quadrature rule <li> Extrapolation </ul> Tex File <a href="./homework/hw6.tex">hw6</a>';
+			  solstr[5]='';
+
+			  // homework 7
+
+			  poststr[6]='<br>Please try to attempt problems that cover the following concepts:<br><ul><li> Applying bisection, the secant method, Newton\'s method, fixed point iteration to solve a nonlinear equation <li>Determine the rate at which a fixed point iteration is converging and if it is converging faster than linearly <li> How to estimate error, rate of convergence and order for linear and superlinear methods <li> A novel application of rootfinding, such as computing reciprocals orsquare roots </ul> Tex File <a href="./homework/hw7.tex">hw7</a>';
+			  solstr[6]='';
+
+			  // homework 8
+
+			  poststr[7]='Please try to attempt problems that cover the following concepts:<br><ul><li> Constructing a numerical method for solving an ODE <li>The root condition for a multistep method <li>Linearization of a higher order differential equation<li>Solving linear difference equations <li> Coding up a numerical method to solve an ODE </ul> Tex File <a href="./homework/hw8.tex">hw8</a>';
+			  solstr[7]='';
+
+			  // homework 9
+
+			  poststr[8]='';
+			  solstr[8]='';
+
+			  // homework 10
+
+			  poststr[9]='';
+			  solstr[9]='';
+
+			  // homework 11
+
+			  poststr[10]='';
+			  solstr[10]='';
+
+			  // homework 
+12
+
+			  poststr[11]='';
+			  solstr[11]='';
+
+			  //for(i=postdate.length-1;i>=0;i--)
+		for(i=9;i>=0;i--)
+		{
+		if (today >= postdate[i])
+		{  
+		document.write('<div class="row">');
+		  document.write('<div class="leftcell" style="width:20%;border-spacing:20em">');
+		    document.write('Problem Set ' + (i+1) + ':');
+		    document.write('</div>');
+		  document.write('<div class="rightcell" style="padding-left:0em;max-width:35em;">');
+		    document.write('Assignment: <a href="homework/hw' + (i+1) + '.pdf">hw' + (i+1) + '.pdf</a> ' + poststr[i] + '<br>');
+		    document.write('Posted ' + wkdaystr[postdate[i].getDay()] + ', ' + pdate[i] + '. <br>');
+		    document.write('Due ' + wkdaystr[duedate[i].getDay()] + ', ' + ddate[i] + '. <br>');
+		    //   if (today >= duedate[i])
+		    //   {
+		    //   document.write('Solutions:  <a href="homework/sol' + (i+1) + '.pdf">sol' + (i+1) + '.pdf</a>' + solstr[i]);
+		    //  }
+		    document.write('</div></div>');//</div></div>');
+	}
+	}
+	</script>
+      </div>
+    </div>
+</div>
+</div>
+
+</body></html>
