@@ -29,7 +29,7 @@ BODY{font-family:"Gill Sans", "Arial", "Helvetica", sans-serif;
         font-size: 100%;
         color:navy;
 	    display:table;
-	    /* margin:auto; */
+	    margin:0 auto; 
 	    /* width:95%; */
 	    background-color: #ffffff;
 }  
