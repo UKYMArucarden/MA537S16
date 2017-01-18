@@ -5,10 +5,10 @@
 	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
 
 	<script type="text/javascript" src="numeric-1.2.6.js"></script>
-	<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.96/jsxgraphcore.js"></script> -->
-		 <link rel="stylesheet" type="text/css" href="jsxgraph.css" />
-	<script type="text/javascript" src="../jsxgraphcore.js"></script>	
-
+	 <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.96/jsxgraphcore.js"></script>  -->
+	<!-- 	 <link rel="stylesheet" type="text/css" href="jsxgraph.css" /> -->
+	 <script type="text/javascript" src="../jsxgraphcore.js"></script>	 
+	<script type="text/javascript" src="https://rawgit.com/rucarden/sprintf.js/master/src/sprintf.js"></script>
 	<title>Lecture 5</title>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
     </head>
@@ -18,6 +18,9 @@
 
 	Using monomial Basis \(\pi_i=t^{i-1}\)
 	In this case \(A\) is the Hilbert matrix.<br>
+		\(n=\)
+	<input style="border:none; background-color:#00efef;padding:5px;margin-left:2px;text-align:right" type="text" id="Nval" value="5" size="10" onchange="func()"/><br>
+
 	Let \(f=\ln(x)\), then \((\pi_i,f)=-1/i^2\)<br>
 	<figure style="border:1px solid;">
 	    <div style="text-align:center"> 
@@ -29,8 +32,16 @@
 		</figcaption>
 	    </div>
 	</figure>
+	<table>
+	    <tr> <td id="output">The output</td></tr>
+	</table>
 
 	<script language="Javascript">
+	  function writeout(s)
+	  {
+	  document.getElementById('output').innerHTML+=s;
+	  }
+
 	 function linspace(a,b,N){
 	     var h=(b-a)/(N-1);
 	     // Prealllocate 
@@ -48,10 +59,19 @@
 	     //No Preallocation, no conversion necessary
 	     //return(out);
 	 }
+	 xmin=-.3;
+	 xmax=1.1;
+	 ymax=.5;
+	 ymin=-5;
 
-	 document.write('<pre><tt>');
+			var plot = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [xmin, ymax,xmax, ymin], axis:true,showCopyright:0});
+			func();
+			
+			function func(){
+				  document.getElementById('output').innerHTML='';
+	 writeout('<pre><tt>');
 	 //A is a matrix, it is stored columnwise
-	 n=80;
+	 n=Number(document.getElementById('Nval').value);
 	 //=5;
 	 A=new Array(n);
 	 b=new Array(n);
@@ -66,52 +86,56 @@
 	     b[i]=-1/Math.pow(i+1,2);
 	     //b[i]=1/(m+i+1);
 	 }
-	 document.write(sprintf('%15s %15s %15s %15s',' ', 'A',' ' ,'b')+'<br>');
+	 writeout(sprintf('%15s %15s %15s %15s',' ', 'A',' ' ,'b')+'<br>');
 	 for(i=0;i<n;i++)
 	 {
 	     for(j=0;j<n;j++)
 	     {
-		 document.write(sprintf('%15.9f ',A[i][j]));
+		 writeout(sprintf('%16.9f ',A[i][j]));
 	     }
-	     document.write(' '+sprintf('%15.9f',b[i])+'<br>')
+	     writeout(' '+sprintf('%16.9f',b[i])+'<br>')
 	 }
 	 c=numeric.solve(A,b)
-	     //document.write('c=[')
-	     for(i=0;i<n-1;i++)
+	     //writeout('c=[')
+	     for(i=0;i<n;i++)
 	 {
-	     document.write(sprintf('%15.9f,', c[i]))
+	     writeout(sprintf('%16.9f,', c[i]))
 	 }
-	 //document.write(sprintf('%15.9f]^T<br>', c[n-1]))
+	 //writeout(sprintf('%16.9f]^T<br>', c[n-1]))
 	 for(i=0;i<n;i++)
 	 {
-	     //document.write(' '+c[i]+'<br>')
+	     //writeout(' '+c[i]+'<br>')
 	 }
-	 document.write('<br>');
-	 //document.write(A);
+	 writeout('<br>');
+	 //writeout(A);
 	 
-	 document.write('</pre></tt>');
-	 xmin=-.3;
-	 xmax=1.1;
-	 ymax=.5;
-	 ymin=-5;
+	 writeout('</pre></tt>');
 	 N=1000;
-	 x=linspace(xmin,xmax,N);
+		     x=linspace(xmin,xmax,N);
+		     if(typeof(thefunc) != "undefined" )
+		     {
+		          plot.removeObject(thefunc);
+		     plot.removeObject(theapprox);
 
-	 var plot = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [xmin, ymax,xmax, ymin], axis:true,showCopyright:0});
+		     
+		     }
+
+	
 	 y=x.map(Math.log); 
-	 plot.create('functiongraph',[function(x){return Math.log(x);}],{strokeColor: 'red',strokeWidth:3,dash:0});
+	 thefunc=plot.create('functiongraph',[function(x){return Math.log(x);}],{strokeColor: 'red',strokeWidth:3,dash:0});
 	 // plot.create('functiongraph',[function(x){return Math.pow(x,m);}],{strokeColor: 'red',strokeWidth:3,dash:0});
 	 //	     y=x.map(function(x){yval=c[n-1];  for(i=n-1;i>0;i--){ yval=yval*x+c[i-1]; } return(yval)});
 	 //	     y=x.map(function(x){yval=c[n-1];  for(i=n-1;i>0;i--){ yval=yval*x+c[i-1]; } return(yval)});
 	 //	     plot.create('curve',[x,y],{strokeColor: 'blue',strokeWidth:3,dash:0});
-	 plot.create('functiongraph',[function(x){yval=c[n-1];  for(i=n-1;i>0;i--){ yval=yval*x+c[i-1]; } return(yval)}],{strokeColor: 'blue',strokeWidth:3,dash:0});
+	 theapprox=plot.create('functiongraph',[function(x){yval=c[n-1];  for(i=n-1;i>0;i--){ yval=yval*x+c[i-1]; } return(yval)}],{strokeColor: 'blue',strokeWidth:3,dash:0});
 	 Ainv=numeric.inv(A);
 	 Aabs=numeric.abs(Ainv);
 	 //numeric.dot(Aabs,x*0+1);
 	 norminfAinv=numeric.norminf(numeric.dot(Aabs,numeric.add(numeric.mul(x,0),1)));
 	 norminfA=numeric.norminf(numeric.dot(numeric.abs(A),numeric.add(numeric.mul(x,0),1)));
 	 condinf=norminfAinv*norminfA;
-	 document.write(sprintf('%15.9e',condinf))
+		     writeout(sprintf('%16.9e',condinf))
+		     }
 	</script>
 
 
