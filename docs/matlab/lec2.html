@@ -8,7 +8,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 </head>
 <body>
-  <h1>Is Floating Point Math broken?</h1>
+<a href="http://stackoverflow.com/questions/588004/is-floating-point-math-broken>  <h1>Is Floating Point Math broken?</h1></a>
   
   <hr>
   Output from loop
@@ -28,9 +28,14 @@
 <!-- document.write('.1+.2==' + (.1+.2) + '<br>'); -->
 <!-- document.write(sprintf('.1+.2== %15.16f <br>', (.1+.2))); -->
 <!-- document.write(sprintf('.1+.2== %15.15e <br>', (.1+.2))); -->
+for(i=0;i<50;i++)
+	    document.write('<br>');
+
+	    document.write('</pre><hr><h2>Output:</h2><br><pre>');
 dx=.1;
 x=0;
 i=0;
+
 while(x<1.0)
 {
 
@@ -38,6 +43,7 @@ while(x<1.0)
 	  document.write('i==' + sprintf('%2d',i) + '  x==' + sprintf('%15.16f',x) + '<br>');
 	  i=i+1;
 }
+
 	  </script>
   </pre>
 </body>
