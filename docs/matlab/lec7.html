@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<script type="text/javascript" src="sprintf.js"></script>
-	<script type="text/javascript" src="../MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
-
+      <script type="text/javascript" src="sprintf.js"></script>
+    	<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
 	<script type="text/javascript" src="numeric-1.2.6.js"></script>
 	<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.96/jsxgraphcore.js"></script> -->
 	<link rel="stylesheet" type="text/css" href="../jsxgraph.css" />
@@ -23,7 +22,7 @@
 	Assuming \(f\in C^{n+1}[a,b]\) and \(c\) is some point in \((a,b)\).
 
 	\(n=\)
-	<input style="border:none; background-color:#00efef;padding:5px;margin-left:2px;text-align:right" type="text" id="degree" value="2" size="10" onchange="func(Number(document.getElementById('degree').value),(document.getElementById('cheb')).checked)"/>
+	<input style="border:none; background-color:#00efef;padding:5px;margin-left:2px;text-align:right" type="text" id="degree" value="2" size="10" onchange="func(Number(document.getElementById('degree').value),(document.getElementById('cheb')).checked)"/><br>
 	<input type="checkbox" id="cheb" />Use Chebyshev points
 
 	<figure style="border:1px solid;">
