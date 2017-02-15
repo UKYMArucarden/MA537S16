@@ -153,3 +153,25 @@ function lagrange(xnodes,ynodes,xvals)
     }
    return(yvals)
 }
+
+function ddtable(xnodes,ynodes)
+{
+    n=xnodes.length;
+    DDtable=zeros(n,n);
+    for(i=0;i<n;i++)
+    {
+    DDtable[i][0]=ynodes[i];
+    }
+    //Evaluate the divided differences
+    //one column at a time.
+    // In practice this would be done in place.
+    for(j=1;j<n;j++)
+    {	
+	for(i=0;i<n-j;i++)
+	{
+	    DDtable[i][j]=(DDtable[i][j-1]-DDtable[i+1][j-1])/(xnodes[i]-xnodes[i+j]);
+	}
+    }
+   return(DDtable)
+}
+
