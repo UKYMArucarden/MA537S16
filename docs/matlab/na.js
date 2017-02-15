@@ -221,6 +221,39 @@ function newtoncoeff(xnodes,ynodes)
     }
    return(DDtable)
 }
+function hermitenewtoncoeff(xnodes,ynodes)
+{
+    n=xnodes.length
+    DDtable=zeros(n,1);
+    //Generate zero order divided differences
+    //And place derivative infor for 1st order divided differences
+    for(var i=0;i<n;i++)
+    {
+	DDtable[i]=ynodes[i];
+    }
+    //Generate remaining first order divided differences
+    for(var i=n/2;i>1;i--)
+    {
+	DDtable[2*i-2]=(DDtable[2*i-2]-DDtable[2*i-4])/(xnodes[2*i-2]-xnodes[2*i-4]);
+
+    }
+
+    for(var j=2;j<n;j++)
+    {	
+	for(var i=n-1;i>=j;i--)
+	{
+//	    disp(DDtable[i-1])
+//	    disp(DDtable[i])
+//	    disp(xnodes[i-j])
+//	    disp(xnodes[i])
+	    DDtable[i]=(DDtable[i-1]-DDtable[i])/(xnodes[i-j]-xnodes[i]);
+//	    disp(DDtable)
+	}
+//	disp(DDtable)
+    }
+   return(DDtable)
+}
+
 //Returns the Chebyshev nodes for the interval [a,b]
 //Nodes are returned in ascending order
 //assuming that a and b are already in ascending order.
