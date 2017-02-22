@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<script type="text/javascript" src="https://rawgit.com/rucarden/sprintf.js/master/src/sprintf.js"></script>
+	<!-- <script type="text/javascript" src="../MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+	<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+
+	
+	<script type="text/javascript" src="numeric-1.2.6.js"></script>
+	<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.96/jsxgraphcore.js"></script> -->
+	<link rel="stylesheet" type="text/css" href="../jsxgraph.css" />
+	<link rel="stylesheet" type="text/css" href="../example_style.css" />
+	<script type="text/javascript" src="../jsxgraphcore.js"></script>	
+	<script type="text/javascript" src="https://ukymarucarden.github.io/MA537S17/matlab/na.js"></script> 
+	<script language="Javascript" src="../../../MA537S17/docs/matlab/na.js">
+	</script>
+	<title>Lecture 17</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+	<div class="main">
+	<hr>
+	<h1>Numerical Differentiation</h1>
+	<hr>
+	Forward difference rule: \( f'(x)=\frac{f(x+h)-f(x)}{h}+O(h)\)
+	<br>
+	The error in the approximation is \(O(h)\), while the condition number of the rule is \(O(\frac{\varepsilon}{h})\),  hence for the optimal error the error due to the approximation and the error due to rounding must be balanced.<br>
+	Example:  \(f(x)=\log(x) \) and \(x=2\), \(h=2^{-i},i=1,2,\ldots, 52\),<br>
+	<input type="checkbox" id="CD" />Central Difference<br>
+	
+		
+	<figure style="border:1px solid;">
+	    <div style="text-align:center"> 
+	    </div>
+	    <div id="jxgbox" class="jxgbox" style="width:500px; height:20em;margin-left: auto; margin-right: auto;"></div>
+	    <div style="text-align:center;padding-top:1em"> 
+		<figcaption>
+		    Plot of \(\frac{D_h f(x)-f'(x)}{f'(x)}\) as a function of \(h\).  <br>
+		    The scale for the x-axis is reveresed and it is log based 10 scale.  The scale for the y-axis is also a log based 10 scale.
+		</figcaption>
+	    </div>
+	</figure>
+
+	<script language="Javascript">
+	 function f(x){
+	     return(Math.log(x));
+	 }
+	 function df(x){
+	     return(1.0/x);
+	 }
+	 
+
+	
+	 //	 document.write('<pre><tt>');
+
+	 flag=document.getElementById('CD').checked;
+
+	 N=52;
+
+	 xmin=0;
+	 xmax=-16;
+	 ymax=0;
+	 ymin=-15;
+	 var plot = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [xmin, ymax,xmax, ymin], axis:true,showCopyright:0});
+
+	 x=3;
+	 xvalues=Array(N);
+	 yvalues=Array(N);
+	 error=Array(N);
+	 writeout(sprintf('<pre>%15s %15s %15s %15s %15s<br>','i','h','Df','error','Ratio'));
+	 e=1;
+	 for(i=1;i<N;i++)
+	 {
+	     h=Math.pow(2,-i);
+	     xvalues[i]=Math.log10(h);
+	     if(flag==0)
+		 {
+	     	     Df=(f(x+h)-f(x))/h;
+		 }
+	     else
+		 {
+		     Df=(f(x+h/2)-f(x-h/2))/h;
+		 }
+	     yvalues[i]=Df;
+	     ep=e;
+	     e=Math.log10(Math.abs(Df-df(x))/Math.abs(df(x)));
+	     error[i]=e;
+	     if (i==1)
+	     {
+		 writeout(sprintf('%15d %15.12f %15.12f %15.12f<br>',i,h,Df,e));
+	     }
+	     else
+	     {
+		 writeout(sprintf('%15d %15.12f %15.12f %15.12f %15.12f<br>',i,h,Df,e,Math.pow(10,ep-e)));
+	     }
+	 }
+	 writeout('</pre>');
+	 theplot=plot.create('curve',[xvalues,error],{strokeColor: 'blue',strokeWidth:3,dash:0});
+
+
+	</script>
+
+	</div>
+    </body>
+</html>
