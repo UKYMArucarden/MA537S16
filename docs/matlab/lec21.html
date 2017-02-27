@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html>
-    <head>
-	<script type="text/javascript" src="sprintf.js"></script>
-	<script type="text/javascript" src="../MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+  <head>
+    	<script type="text/javascript" src="https://rawgit.com/rucarden/sprintf.js/master/src/sprintf.js"></script>
+	<!-- <script type="text/javascript" src="../MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+	<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
 
 	<script type="text/javascript" src="numeric-1.2.6.js"></script>
 	<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.96/jsxgraphcore.js"></script> -->
 	<link rel="stylesheet" type="text/css" href="../jsxgraph.css" />
 	<link rel="stylesheet" type="text/css" href="../example_style.css" />
 	<script type="text/javascript" src="../jsxgraphcore.js"></script>	
-
-	<title>Lecture 21</title>
+	<script type="text/javascript" src="https://ukymarucarden.github.io/MA537S17/matlab/na.js"></script> 
+	<script language="Javascript" src="../../../MA537S17/docs/matlab/na.js"></script>
+	 
+	<title>Lecture 20</title>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
     </head>
     <body>
@@ -44,7 +47,7 @@
 <input type="button" value="set term" onClick="newfunc();">
 </form>
 
-, \(h=2^i\) for \(i=0,1,2,\ldots 10\)<br>
+ \(h=2^i\) for \(i=0,1,2,\ldots 20\)<br>
 	<figure style="border:1px solid;">
 	    <div style="text-align:center"> 
 	    </div>
@@ -63,29 +66,6 @@
 	<script language="Javascript">
 	 theplotR=0;
 	 theplotT=0;
-	 function linspace(a,b,N){
-	     if(N!=1)
-	     {
-		 var h=(b-a)/(N-1);}
-	     else
-	     {
-		 var h=0;}
-
-	     // Prealllocate 
-	     var out = new Float64Array(N);
-	     // No Preallocation 
-	     // out=[];
-	     for(i=0;i< N;i++){
-		 //Preallocation
-		 out[i]=(a+i*h);
-		 //No Preallocation
-		 //out.push(a+i*h);
-	     }
-	     //Preallocate, must convert to regular array
-	     return(Array.prototype.slice.call(out));
-	     //No Preallocation, no conversion necessary
-	     //return(out);
-	 }
 
 	 //	 document.write('<pre><tt>');
 
@@ -125,13 +105,13 @@
 	 for(i=0;i<7;i++)
 		 {
 	
-	     if(document.getElementById('f'+i).checked)
-	     {
-		 eval("f=function(x){return("+ document.getElementById('f'+i).value+");}");
-		 fnone=1;
-	     }
-	 }
-		 if(fnone==0){
+		     if(document.getElementById('f'+i).checked)
+		     {
+		     eval("f=function(x){return("+ document.getElementById('f'+i).value+");}");
+		     fnone=1;
+		     }
+		     }
+		     if(fnone==0){
 		     eval("f=function(x){return("+ document.getElementById('other').value+");}");
 		     }
 
