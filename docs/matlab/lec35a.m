@@ -82,13 +82,13 @@ hold on
 
 plot(data(:),'b*')
 pause
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Region of Stability of Trapezoid Method
-%Trap y_i+1=y_i+h/2( f(x_i+1,y_i+1)+f(x_i+1,y_i+1))
-% r(lambda h)=(1+h lambda /2)./(1-h*lambda/2)
-r=@(z)(1+z/2)./(1-z/2)
-disp('Trapezoid')
+%Region of Stability of Backward Euler's Method approximated with
+%Forward Euler and one fixed point iteration
+%approximate BEM y_i+1=y_i+h f(x_i+1,y_i+h *f(x_i,y_i)))
+% r(lambda h)=(1+h lambda+ (hlambda)^2
+r=@(z)1+z+z.^2
+disp('Backward Euler')
 %Method 1
 disp('Method 1')
 xval=linspace(-2,2);
@@ -100,7 +100,7 @@ clf
 colormap autumn
 pcolor(xval,yval,(Rval<1)*1.0)
 colorbar
-title('Region of Stability of Trapezoid Method')
+title('Region of Stability of Backward Euler Method')
 xlabel('real(\lambda h)')
 ylabel('imag(\lambda h)')
 pause
@@ -117,12 +117,10 @@ data=[];
 i=1;
 
 for theta=thetaval
-    %h=1 -> [ 1/2 1]%
-    %g=(1-z) -> [-1/2 1]
+    %h=1 -> [ 0 1]%
+    %g=(1-z) -> [-1 1]
     % Hence the coefficients will be
-    % 
-    
-    r=[1/2 1]-exp(1i*theta)*[-1/2 1];
+    r=[1 1 1]-exp(1i*theta)*[0 0 1];
     data(i,:)=roots(r);
     i=i+1;
 end
@@ -130,11 +128,151 @@ hold on
 
 plot(data(:),'b*')
 pause
-return
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Region of Stability of Backward Euler's Method approximated with
+%Forward Euler and two fixed point iterations
+%approximate BEM y_i+1=y_i+h f(x_i+1,y_i+h f(x_i+1,y_i+h *f(x_i,y_i)))_
+% r(lambda h)=(1+h lambda+ (hlambda)^2+(h lambda)^3
+r=@(z)1+z+z.^2+z.^3;
+disp('Backward Euler with two FPI')
+%Method 1
+disp('Method 1')
+xval=linspace(-2,2);
+yval=linspace(-2,2);
+[X Y]=meshgrid(xval,yval);
+Z=X+1i*Y;
+Rval=abs(r(Z));
+clf
+colormap autumn
+pcolor(xval,yval,(Rval<1)*1.0)
+colorbar
+title('Region of Stability of Backward Euler Method')
+xlabel('real(\lambda h)')
+ylabel('imag(\lambda h)')
+pause
+%Method 2
+disp('Method 2')
+%To use method 2 for rational functions 
+% r(z)= h(z)/g(z)
+% Let h(z)/g(z)=e^{i theta}
+% then
+% h(z)-g(z)*e^{i theta}
+% Is the polynomial whose roots we want to find
+thetaval=linspace(0,2*pi);
+data=[];
+i=1;
+
+for theta=thetaval
+    %h=1 -> [ 0 1]%
+    %g=(1-z) -> [-1 1]
+    % Hence the coefficients will be
+    r=[1 1 1 1]-exp(1i*theta)*[0 0 0 1];
+    data(i,:)=roots(r);
+    i=i+1;
+end
+hold on
+
+plot(data(:),'b*')
+pause
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Region of Stability of Backward Euler's Method approximated with
+%Forward Euler and three fixed point iterations
+r=@(z)1+z+z.^2+z.^3+z.^4;
+disp('Backward Euler with three FPI')
+%Method 1
+disp('Method 1')
+xval=linspace(-2,2);
+yval=linspace(-2,2);
+[X Y]=meshgrid(xval,yval);
+Z=X+1i*Y;
+Rval=abs(r(Z));
+clf
+colormap autumn
+pcolor(xval,yval,(Rval<1)*1.0)
+colorbar
+title('Region of Stability of Backward Euler Method')
+xlabel('real(\lambda h)')
+ylabel('imag(\lambda h)')
+pause
+%Method 2
+disp('Method 2')
+%To use method 2 for rational functions 
+% r(z)= h(z)/g(z)
+% Let h(z)/g(z)=e^{i theta}
+% then
+% h(z)-g(z)*e^{i theta}
+% Is the polynomial whose roots we want to find
+thetaval=linspace(0,2*pi);
+data=[];
+i=1;
+
+for theta=thetaval
+    %h=1 -> [ 0 1]%
+    %g=(1-z) -> [-1 1]
+    % Hence the coefficients will be
+    r=[1 1 1 1 1]-exp(1i*theta)*[0 0 0 0 1];
+    data(i,:)=roots(r);
+    i=i+1;
+end
+hold on
+
+plot(data(:),'b*')
+pause
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Region of Stability of Backward Euler's Method approximated with
+%Forward Euler and ten fixed point iterations
+r=@(z)1+z+.5*z.^2;
+disp('Midpoint Rule')
+%Method 1
+disp('Method 1')
+xval=linspace(-2,2);
+yval=linspace(-2,2);
+[X Y]=meshgrid(xval,yval);
+Z=X+1i*Y;
+Rval=abs(r(Z));
+clf
+colormap autumn
+pcolor(xval,yval,(Rval<1)*1.0)
+colorbar
+title('Region of Stability of Backward Euler Method')
+xlabel('real(\lambda h)')
+ylabel('imag(\lambda h)')
+pause
+%Method 2
+disp('Method 2')
+%To use method 2 for rational functions 
+% r(z)= h(z)/g(z)
+% Let h(z)/g(z)=e^{i theta}
+% then
+% h(z)-g(z)*e^{i theta}
+% Is the polynomial whose roots we want to find
+thetaval=linspace(0,2*pi);
+data=[];
+i=1;
+
+for theta=thetaval
+    %h=1 -> [ 0 1]%
+    %g=(1-z) -> [-1 1]
+    % Hence the coefficients will be
+    r=[.5 1 1]-exp(1i*theta)*[0 0 1];
+    data(i,:)=roots(r);
+    i=i+1;
+end
+hold on
+
+plot(data(:),'b*')
+pause
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%n
-%Region of stability for AB-2
-%EM y_i+1=y_i+h/2*(3 f(x_i,y_i)-  f(x_i-1,y_i-1))
-% Replace y_{i} with r^i simplify
+%Region of stability for approximation Midpoint rule 
+% y_i+1=y_i+h*(f(x_i,y_i+h/2 f(x_i,y_i)))
+
 %Method 2
 disp('Method 2')
 clf
